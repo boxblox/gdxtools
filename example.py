@@ -60,26 +60,22 @@ if __name__ == '__main__':
 
     # add parameters, but first must zip the data into a dictionary
     a = gdxin.rgdx(name='a')
-    a_p = {a: b for a, b in zip(a['values']['domain'], a['values']['data'])}
     gdxout.add_parameter_dc(gamsparametername='a',
-                            domain=a['domain'], toparameter=a_p, desc=a['text'])
+                            domain=a['domain'], toparameter=a['values'], desc=a['text'])
 
     b = gdxin.rgdx(name='b')
-    b_p = {a: b for a, b in zip(b['values']['domain'], b['values']['data'])}
     gdxout.add_parameter_dc(gamsparametername='b',
-                            domain=b['domain'], toparameter=b_p, desc=b['text'])
+                            domain=b['domain'], toparameter=b['values'], desc=b['text'])
 
     d = gdxin.rgdx(name='d')
-    d_p = {a: b for a, b in zip(d['values']['domain'], d['values']['data'])}
     gdxout.add_parameter_dc(gamsparametername='d',
-                            domain=d['domain'], toparameter=d_p, desc=d['text'])
+                            domain=d['domain'], toparameter=d['values'], desc=d['text'])
 
     f = gdxin.rgdx(name='f')
     gdxout.add_scalar(gamsparametername='f', toparameter=f['values'], desc=f['text'])
 
     c = gdxin.rgdx(name='c')
-    c_p = {a: b for a, b in zip(c['values']['domain'], c['values']['data'])}
     gdxout.add_parameter_dc(gamsparametername='c',
-                            domain=c['domain'], toparameter=c_p, desc=c['text'])
+                            domain=c['domain'], toparameter=c['values'], desc=c['text'])
 
     gdxout.export_gdx()
