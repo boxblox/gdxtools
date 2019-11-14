@@ -5,16 +5,16 @@ import gdxtools as gt
 if __name__ == '__main__':
 
     # create instance of gams gdx data
-    gdxin = gt.gdxrw.gdx_reader('trnsport_output.gdx')
+    gdxin = gt.gdxrw.gdxReader('trnsport_output.gdx')
 
     # get all symbols inside a GDX
-    gdxin.getSymbols()
+    gdxin.symbols
 
     # get symbol types from a GDX file
-    gdxin.getSymbolTypes()
+    gdxin.symbolType
 
-    # get read in all data from a gdx file (creates a python dictionary)
-    all_data = gdxin.rgdx()
+    # get symbol dimensions from a GDX file
+    gdxin.symbolDimension
 
     # read in single items
     i = gdxin.rgdx(name='i')
@@ -25,17 +25,23 @@ if __name__ == '__main__':
 
     # read in parameters and turn it into 'c' into a dataframe
     c = gdxin.rgdx(name='c')
-    c_df = pd.DataFrame(data=c['values']['domain'], columns=['dim1', 'dim2'])
-    c_df['value'] = c['values']['data']
+
+    # create a simple index/value pandas dataframe
+    c_df = pd.DataFrame(data=zip(c['values'].keys(),
+                                 c['values'].values()), columns=['index', 'value'])
+
+    # might also be helpful to split out the index tuple into different columns
+    c_df2 = pd.DataFrame(data=c['values'].keys(), columns=c['domain'])
+    c_df2['value'] = c['values'].values()
 
     # read in a variable and turn it into a dataframe
     x = gdxin.rgdx(name='x')
-    x_df = pd.DataFrame(data=x['values']['domain'], columns=['dim1', 'dim2'])
-    x_df['LO'] = x['values']['lower']
-    x_df['L'] = x['values']['level']
-    x_df['UP'] = x['values']['upper']
-    x_df['scale'] = x['values']['scale']
-    x_df['M'] = x['values']['marginal']
+    x_df = pd.DataFrame(data=x['values'].keys(), columns=c['domain'])
+    x_df['LO'] = [x['values'][i]['lower'] for i in x['values'].keys()]
+    x_df['L'] = [x['values'][i]['level'] for i in x['values'].keys()]
+    x_df['UP'] = [x['values'][i]['upper'] for i in x['values'].keys()]
+    x_df['scale'] = [x['values'][i]['scale'] for i in x['values'].keys()]
+    x_df['M'] = [x['values'][i]['marginal'] for i in x['values'].keys()]
 
     # --------------------------------------------------------------------------
     # Write out another GDX with the similar structure to the original input gdx

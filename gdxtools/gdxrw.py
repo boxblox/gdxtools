@@ -232,7 +232,11 @@ class gdxReader:
                                                                      'upper': rec.upper,
                                                                      'scale': rec.scale,
                                                                      'marginal': rec.marginal} for rec in self.__db__[i]}
-        return self.__query__
+
+        if len(t) == 1:
+            return self.__query__[t[0]]
+        else:
+            return self.__query__
 
 
 class gdxWriter:
