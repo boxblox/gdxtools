@@ -49,7 +49,7 @@ if __name__ == '__main__':
     # Check can be run with gdxdiff
     # --------------------------------------------------------------------------
 
-    gdxout = gt.gdxrw.gdx_writer('./trnsport_output_chk.gdx')
+    gdxout = gt.gdxrw.gdxWriter('./trnsport_output_chk.gdx')
 
     # add sets without domain checking (universe domain)
     gdxout.add_set(gamssetname='i', toset=i['elements'], desc=i['text'])
