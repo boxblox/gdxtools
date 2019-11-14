@@ -58,7 +58,7 @@ if __name__ == '__main__':
     # there are no subsets in this example, but if you wanted to run domain checking you would use this:
     # gdxout.add_set_dc(gamssetname=, domain=, toset=, desc=)
 
-    # add parameters, but first must zip the data into a dictionary
+    # add parameters and do the domain checking
     a = gdxin.rgdx(name='a')
     gdxout.add_parameter_dc(gamsparametername='a',
                             domain=a['domain'], toparameter=a['values'], desc=a['text'])
