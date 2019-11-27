@@ -89,10 +89,6 @@ class gdxReader:
     def rgdx(self, **kwargs):
         name = kwargs.get('name', None)
 
-        for i in name:
-            if i not in self.symbols:
-                raise Exception('"{}" is not in the GDX file, check spelling?'.format(i))
-
         if name is None:
             t = self.symbols
         elif isinstance(name, str):
@@ -101,6 +97,10 @@ class gdxReader:
             t = name
         else:
             raise Exception('name must be either type list or str')
+
+        for i in t:
+            if i not in self.symbols:
+                raise Exception('"{}" is not in the GDX file, check spelling?'.format(i))
 
         self.__query__ = {}
         for i in t:
