@@ -1,6 +1,5 @@
 import os
 import json
-from pandas import DataFrame
 
 try:
     from gams import *
@@ -90,7 +89,10 @@ class gdxReader:
     def rgdx(self, **kwargs):
         name = kwargs.get('name', None)
 
-        # input checking
+        for i in name:
+            if i not in self.symbols:
+                raise Exception('"{}" is not in the GDX file, check spelling?'.format(i))
+
         if name is None:
             t = self.symbols
         elif isinstance(name, str):
@@ -98,11 +100,7 @@ class gdxReader:
         elif isinstance(name, list):
             t = name
         else:
-            raise Exception('rgdx name must be either type list or str')
-
-        for i in t:
-            if i not in self.symbols:
-                raise Exception('"{}" is not in the GDX file, check spelling?'.format(i))
+            raise Exception('name must be either type list or str')
 
         self.__query__ = {}
         for i in t:
@@ -235,27 +233,10 @@ class gdxReader:
                                                                      'scale': rec.scale,
                                                                      'marginal': rec.marginal} for rec in self.__db__[i]}
 
-        return self
-
-    def to_dict(self):
-        if len(self.__query__.keys()) == 1:
-            return self.__query__[list(self.__query__.keys())[0]]
+        if len(t) == 1:
+            return self.__query__[t[0]]
         else:
             return self.__query__
-
-    def to_dataframe(self):
-
-        df = []
-        for n, i in enumerate(self.__query__.keys()):
-            df.append(DataFrame(data=self.__query__[i]['values'].keys(),
-                                columns=self.__query__[i]['domain']))
-
-            df[n]['value'] = self.__query__[i]['values'].values()
-
-        if len(df) == 1:
-            return df[0]
-        else:
-            return tuple(df)
 
 
 class gdxWriter:

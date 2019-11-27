@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="gdxtools",
-    version="0.1.82",
+    version="0.1.81",
     author="Adam Christensen",
     author_email="adam.christensen@gmail.com",
     description="A helper package to read and write GAMS GDX files",
