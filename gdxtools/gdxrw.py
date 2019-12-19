@@ -91,6 +91,11 @@ class gdxReader:
         for i in self.symbols:
             self.symbolDomain[i] = self.__db__[i].domains_as_strings
 
+        # get number of records for each symbol
+        self.symbolRecords = {}
+        for i in self.symbols:
+            self.symbolRecords[i] = self.__db__[i].number_records
+
     def rgdx(self, **kwargs):
         name = kwargs.get('name', None)
 
@@ -115,7 +120,7 @@ class gdxReader:
                     self.__query__[i]['type'] = self.symbolType[i]
                     self.__query__[i]['dimension'] = self.symbolDimension[i]
                     self.__query__[i]['domain'] = self.symbolDomain[i]
-                    self.__query__[i]['number_records'] = self.__db__[i].number_records
+                    self.__query__[i]['number_records'] = self.symbolRecords[i]
                     self.__query__[i]['text'] = self.__db__[i].text
                     self.__query__[i]['elements'] = [rec.keys[0] for rec in self.__db__[i]]
 
@@ -123,7 +128,7 @@ class gdxReader:
                     self.__query__[i]['type'] = self.symbolType[i]
                     self.__query__[i]['dimension'] = self.symbolDimension[i]
                     self.__query__[i]['domain'] = self.symbolDomain[i]
-                    self.__query__[i]['number_records'] = self.__db__[i].number_records
+                    self.__query__[i]['number_records'] = self.symbolRecords[i]
                     self.__query__[i]['text'] = self.__db__[i].text
                     self.__query__[i]['elements'] = [tuple(rec.keys) for rec in self.__db__[i]]
 
@@ -132,7 +137,7 @@ class gdxReader:
                     self.__query__[i]['type'] = self.symbolType[i]
                     self.__query__[i]['dimension'] = self.symbolDimension[i]
                     self.__query__[i]['domain'] = self.symbolDomain[i]
-                    self.__query__[i]['number_records'] = self.__db__[i].number_records
+                    self.__query__[i]['number_records'] = self.symbolRecords[i]
                     self.__query__[i]['text'] = self.__db__[i].text
                     self.__query__[i]['values'] = self.__db__[i].first_record().value
 
@@ -140,7 +145,7 @@ class gdxReader:
                     self.__query__[i]['type'] = self.symbolType[i]
                     self.__query__[i]['dimension'] = self.symbolDimension[i]
                     self.__query__[i]['domain'] = self.symbolDomain[i]
-                    self.__query__[i]['number_records'] = self.__db__[i].number_records
+                    self.__query__[i]['number_records'] = self.symbolRecords[i]
                     self.__query__[i]['text'] = self.__db__[i].text
 
                     self.__query__[i]['values'] = {rec.keys[0]: rec.value for rec in self.__db__[i]}
@@ -149,7 +154,7 @@ class gdxReader:
                     self.__query__[i]['type'] = self.symbolType[i]
                     self.__query__[i]['dimension'] = self.symbolDimension[i]
                     self.__query__[i]['domain'] = self.symbolDomain[i]
-                    self.__query__[i]['number_records'] = self.__db__[i].number_records
+                    self.__query__[i]['number_records'] = self.symbolRecords[i]
                     self.__query__[i]['text'] = self.__db__[i].text
 
                     self.__query__[i]['values'] = {
@@ -160,7 +165,7 @@ class gdxReader:
                     self.__query__[i]['type'] = self.symbolType[i]
                     self.__query__[i]['dimension'] = self.symbolDimension[i]
                     self.__query__[i]['domain'] = self.symbolDomain[i]
-                    self.__query__[i]['number_records'] = self.__db__[i].number_records
+                    self.__query__[i]['number_records'] = self.symbolRecords[i]
                     self.__query__[i]['text'] = self.__db__[i].text
                     self.__query__[i]['vartype'] = variable_types[self.__db__[i].vartype]
 
@@ -174,7 +179,7 @@ class gdxReader:
                     self.__query__[i]['type'] = self.symbolType[i]
                     self.__query__[i]['dimension'] = self.symbolDimension[i]
                     self.__query__[i]['domain'] = self.symbolDomain[i]
-                    self.__query__[i]['number_records'] = self.__db__[i].number_records
+                    self.__query__[i]['number_records'] = self.symbolRecords[i]
                     self.__query__[i]['text'] = self.__db__[i].text
                     self.__query__[i]['vartype'] = variable_types[self.__db__[i].vartype]
 
@@ -188,7 +193,7 @@ class gdxReader:
                     self.__query__[i]['type'] = self.symbolType[i]
                     self.__query__[i]['dimension'] = self.symbolDimension[i]
                     self.__query__[i]['domain'] = self.symbolDomain[i]
-                    self.__query__[i]['number_records'] = self.__db__[i].number_records
+                    self.__query__[i]['number_records'] = self.symbolRecords[i]
                     self.__query__[i]['text'] = self.__db__[i].text
                     self.__query__[i]['vartype'] = variable_types[self.__db__[i].vartype]
 
@@ -203,7 +208,7 @@ class gdxReader:
                     self.__query__[i]['type'] = self.symbolType[i]
                     self.__query__[i]['dimension'] = self.symbolDimension[i]
                     self.__query__[i]['domain'] = self.symbolDomain[i]
-                    self.__query__[i]['number_records'] = self.__db__[i].number_records
+                    self.__query__[i]['number_records'] = self.symbolRecords[i]
                     self.__query__[i]['text'] = self.__db__[i].text
 
                     self.__query__[i]['values'] = {'lower': self.__db__[i].first_record().lower,
@@ -216,7 +221,7 @@ class gdxReader:
                     self.__query__[i]['type'] = self.symbolType[i]
                     self.__query__[i]['dimension'] = self.symbolDimension[i]
                     self.__query__[i]['domain'] = self.symbolDomain[i]
-                    self.__query__[i]['number_records'] = self.__db__[i].number_records
+                    self.__query__[i]['number_records'] = self.symbolRecords[i]
                     self.__query__[i]['text'] = self.__db__[i].text
 
                     self.__query__[i]['values'] = {rec.keys[0]: {'lower': rec.lower,
@@ -229,7 +234,7 @@ class gdxReader:
                     self.__query__[i]['type'] = self.symbolType[i]
                     self.__query__[i]['dimension'] = self.symbolDimension[i]
                     self.__query__[i]['domain'] = self.symbolDomain[i]
-                    self.__query__[i]['number_records'] = self.__db__[i].number_records
+                    self.__query__[i]['number_records'] = self.symbolRecords[i]
                     self.__query__[i]['text'] = self.__db__[i].text
 
                     self.__query__[i]['values'] = {tuple(rec.keys): {'lower': rec.lower,
